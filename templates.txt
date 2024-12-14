@@ -46,7 +46,7 @@ module.exports = new MessageCommand({
     },
     /**
      * 
-     * @param {DiscordBot} client 
+     * @param {App} client 
      * @param {Message} message 
      * @param {string[]} args
      */
