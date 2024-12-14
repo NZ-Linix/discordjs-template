@@ -1,0 +1,71 @@
+// ---------------------------------------------
+// --------------- Slash Command ---------------
+// ---------------------------------------------
+
+const { ChatInputCommandInteraction } = require("discord.js");
+const App = require("../../client/App");
+const ApplicationCommand = require("../../structure/ApplicationCommand");
+
+module.exports = new ApplicationCommand({
+    command: {
+        name: '',
+        description: '',
+        type: 1,
+        options: []
+    },
+    options: {
+        cooldown: 10000
+    },
+    /**
+     * 
+     * @param {App} client 
+     * @param {ChatInputCommandInteraction} interaction 
+     */
+    run: async (client, interaction) => {
+        
+    }
+}).toJSON();
+
+// -----------------------------------------------
+// --------------- Message Command ---------------
+// -----------------------------------------------
+
+const { Message } = require("discord.js");
+const App = require("../../client/App");
+const MessageCommand = require("../../structure/MessageCommand");
+const config = require("../../config");
+
+module.exports = new MessageCommand({
+    command: {
+        name: '',
+        description: '',
+        aliases: ['']
+    },
+    options: {
+        cooldown: 10000
+    },
+    /**
+     * 
+     * @param {DiscordBot} client 
+     * @param {Message} message 
+     * @param {string[]} args
+     */
+    run: async (client, message, args) => {
+
+    }
+}).toJSON();
+
+// ---------------------------------------------
+// --------------- Event Example ---------------
+// ---------------------------------------------
+
+const { success } = require("../../utils/Console");
+const Event = require("../../structure/Event");
+
+module.exports = new Event({
+    event: '',
+    once: true / false,
+    run: (__client__, client) => {
+        
+    }
+}).toJSON();
