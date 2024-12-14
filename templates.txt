@@ -30,9 +30,6 @@ module.exports = new ApplicationCommand({
 // --------------- Message Command ---------------
 // -----------------------------------------------
 
-// For Event Names / Parameters: https://gist.github.com/Iliannnn/f4985563833e2538b1b96a8cb89d72bb 
-// (Event Cheatsheet)
-
 const { Message } = require("discord.js");
 const App = require("../../client/App");
 const MessageCommand = require("../../structure/MessageCommand");
@@ -61,6 +58,9 @@ module.exports = new MessageCommand({
 // ---------------------------------------------
 // --------------- Event Example ---------------
 // ---------------------------------------------
+
+// For Event Names / Parameters: https://gist.github.com/Iliannnn/f4985563833e2538b1b96a8cb89d72bb 
+// (Event Cheatsheet)
 
 const { success } = require("../../utils/Console");
 const Event = require("../../structure/Event");
