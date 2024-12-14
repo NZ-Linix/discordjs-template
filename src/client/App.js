@@ -7,6 +7,7 @@ const ComponentsHandler = require("./handler/ComponentsHandler");
 const ComponentsListener = require("./handler/ComponentsListener");
 const EventsHandler = require("./handler/EventsHandler");
 const { QuickYAML } = require('quick-yaml.db');
+require('colors');
 
 class App extends Client {
     collection = {
@@ -26,7 +27,8 @@ class App extends Client {
     statusMessages = [
         { name: 'Status 1', type: 4 },
         { name: 'Status 2', type: 4 },
-        { name: 'Status 3', type: 4 }
+        { name: 'Status 3', type: 4 },
+        // Add more statuses here if you need
     ];
 
     commands_handler = new CommandsHandler(this);
@@ -50,9 +52,9 @@ class App extends Client {
             ],
             presence: {
                 activities: [{
-                    name: 'keep this empty',
+                    name: '',
                     type: 4,
-                    state: 'DiscordJS-V14-Bot-Template v3'
+                    state: 'Starting...'
                 }]
             }
         });
@@ -71,7 +73,7 @@ class App extends Client {
     }
 
     connect = async () => {
-        warn(`Attempting to connect to the Discord bot... (${this.login_attempts + 1})`);
+        warn(`Attempting to connect to App: [ATTEMPT: (${this.login_attempts + 1})]`);
 
         this.login_timestamp = Date.now();
 
@@ -82,11 +84,12 @@ class App extends Client {
             this.events_handler.load();
             this.startStatusRotation();
 
-            warn('Attempting to register application commands... (this might take a while!)');
+            warn('Attempting to register application commands... (!)');
             await this.commands_handler.registerApplicationCommands(config.development);
-            success('Successfully registered application commands. For specific guild? ' + (config.development.enabled ? 'Yes' : 'No'));
+            success('Successfully registered application commands. Developer Server? ' + 
+                                            (config.development.enabled ? '[TRUE]'.green : '[FALSE]'.red));
         } catch (err) {
-            error('Failed to connect to the Discord bot, retrying...');
+            error('Failed to connect to the Application. ' + '[RETRY]'.green);
             error(err);
             this.login_attempts++;
             setTimeout(this.connect, 5000);
