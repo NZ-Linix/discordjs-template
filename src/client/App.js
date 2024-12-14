@@ -55,6 +55,7 @@ class App extends Client {
         
         new CommandsListener(this);
         new ComponentsListener(this);
+        this.events_handler = new EventsHandler(this);
     }
 
     startStatusRotation = () => {
@@ -89,4 +90,4 @@ class App extends Client {
     }
 }
 
-module.exports = DiscordBot;
+module.exports = App;

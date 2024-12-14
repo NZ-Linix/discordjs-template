@@ -1,6 +1,8 @@
-const DiscordBot = require("../DiscordBot");
+const App = require("../App");
 const config = require("../../config");
-const { error } = require("../../utils/Console");
+const { error, info } = require("../../utils/Console");
+const { readdirSync } = require('fs');
+const { join } = require('path');
 
 class ComponentsListener {
     /**
@@ -89,4 +91,31 @@ class ComponentsListener {
     }
 }
 
-module.exports = ComponentsListener;
+class EventsHandler {
+    client;
+
+    /**
+     * 
+     * @param {DiscordBot} client 
+     */
+    constructor(client) {
+        this.client = client;
+    }
+
+    load = () => {
+        const eventsPath = join(__dirname, '../../events');
+        const eventFiles = readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+        for (const file of eventFiles) {
+            const event = require(join(eventsPath, file));
+            if (event.once) {
+                this.client.once(event.event, (...args) => event.run(this.client, ...args));
+            } else {
+                this.client.on(event.event, (...args) => event.run(this.client, ...args));
+            }
+            info(`Loaded event: ${event.event}`);
+        }
+    }
+}
+
+module.exports = EventsHandler;

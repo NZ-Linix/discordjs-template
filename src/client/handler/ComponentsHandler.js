@@ -1,6 +1,6 @@
 const { info, error, success } = require('../../utils/Console');
 const { readdirSync } = require('fs');
-const DiscordBot = require('../DiscordBot');
+const App = require('../App');
 const Component = require('../../structure/Component');
 const AutocompleteComponent = require('../../structure/AutocompleteComponent');
 

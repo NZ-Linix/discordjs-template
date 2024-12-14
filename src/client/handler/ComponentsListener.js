@@ -1,4 +1,4 @@
-const DiscordBot = require("../DiscordBot");
+const App = require("../App");
 const config = require("../../config");
 const { error } = require("../../utils/Console");
 
