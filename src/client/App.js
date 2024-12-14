@@ -32,7 +32,11 @@ class App extends Client {
     commands_handler = new CommandsHandler(this);
     components_handler = new ComponentsHandler(this);
     events_handler = new EventsHandler(this);
+
     database = new QuickYAML(config.database.path);
+
+    // Add more Databases here if you need:
+    // <Name> = new QuickYAML('<Path>');
 
     constructor() {
         super({
