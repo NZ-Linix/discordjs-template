@@ -48,5 +48,5 @@ Run `node src/index.js`
 
 ## Credits
 
-Credits go to @TFAGaming  
+Credits go to [@TFAGaming](https://github.com/TFAGaming)
 This project is inspired by his DiscordJS-Template
