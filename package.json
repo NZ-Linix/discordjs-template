@@ -1,14 +1,14 @@
 {
-  "name": "discordjs-boot",
+  "name": "discordjs-template",
   "version": "1.0.0",
-  "description": "DIscordJS Boot Template",
+  "description": "DIscordJS Template",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "discordjs-boot"
+    "url": "discordjs-template"
   },
   "author": "Linix Red",
   "license": "MIT",
