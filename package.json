@@ -1,0 +1,21 @@
+{
+  "name": "discordjs-boot",
+  "version": "1.0.0",
+  "description": "DIscordJS Boot Template",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "discordjs-boot"
+  },
+  "author": "Linix Red",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7",
+    "quick-yaml.db": "^1.2.2"
+  }
+}
