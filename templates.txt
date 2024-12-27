@@ -2,10 +2,12 @@
 // --------------- Slash Command ---------------
 // ---------------------------------------------
 
-const { ChatInputCommandInteraction } = require("discord.js");
+const { ChatInputCommandInteraction, EmbedBuilder } = require("discord.js");
 const App = require("../../client/App");
 const Database = require("../../client/Database");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
+
+const db = new Database();
 
 module.exports = new ApplicationCommand({
     command: {
@@ -31,11 +33,13 @@ module.exports = new ApplicationCommand({
 // --------------- Message Command ---------------
 // -----------------------------------------------
 
-const { Message } = require("discord.js");
+const { Message, EmbedBuilder } = require("discord.js");
 const App = require("../../client/App");
 const Database = require("../../client/Database");
 const MessageCommand = require("../../structure/MessageCommand");
 const config = require("../../config");
+
+const db = new Database();
 
 module.exports = new MessageCommand({
     command: {
