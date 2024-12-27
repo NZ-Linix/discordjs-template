@@ -35,8 +35,6 @@ class App extends Client {
     components_handler = new ComponentsHandler(this);
     events_handler = new EventsHandler(this);
 
-    database = new QuickYAML(config.database.path);
-
     // Add more Databases here if you need:
     // <Name> = new QuickYAML('<Path>');
 
