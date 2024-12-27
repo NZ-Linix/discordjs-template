@@ -28,15 +28,12 @@ class App extends Client {
         { name: 'Status 1', type: 4 },
         { name: 'Status 2', type: 4 },
         { name: 'Status 3', type: 4 },
-        // Add more statuses here if you need
+        // Add more or remove statuses here
     ];
 
     commands_handler = new CommandsHandler(this);
     components_handler = new ComponentsHandler(this);
     events_handler = new EventsHandler(this);
-
-    // Add more Databases here if you need:
-    // <Name> = new QuickYAML('<Path>');
 
     constructor() {
         super({
@@ -67,7 +64,7 @@ class App extends Client {
         setInterval(() => {
             this.user.setPresence({ activities: [this.statusMessages[index]] });
             index = (index + 1) % this.statusMessages.length;
-        }, 4000);
+        }, 4000); // Time for status change (in ms)
     }
 
     connect = async () => {
