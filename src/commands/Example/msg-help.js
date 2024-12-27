@@ -1,5 +1,6 @@
 const { Message } = require("discord.js");
 const App = require("../../client/App");
+const Database = require("../../client/Database");
 const MessageCommand = require("../../structure/MessageCommand");
 const config = require("../../config");
 

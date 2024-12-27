@@ -1,5 +1,6 @@
 const { ChatInputCommandInteraction } = require("discord.js");
 const App = require("../../client/App");
+const Database = require("../../client/Database");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 
 module.exports = new ApplicationCommand({
