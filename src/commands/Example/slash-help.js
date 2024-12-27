@@ -3,6 +3,8 @@ const App = require("../../client/App");
 const Database = require("../../client/Database");
 const ApplicationCommand = require("../../structure/ApplicationCommand");
 
+const db = new Database();
+
 module.exports = new ApplicationCommand({
     command: {
         name: 'help',
