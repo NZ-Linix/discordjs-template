@@ -1,120 +1,59 @@
-const App = require("../App");
-const config = require("../../config");
-const { error, info } = require("../../utils/Console");
+const { info, error, success } = require('../../utils/Console');
 const { readdirSync } = require('fs');
-const { join } = require('path');
-
-class ComponentsListener {
-    /**
-     * 
-     * @param {DiscordBot} client 
-     */
-    constructor(client) {
-        client.on('interactionCreate', async (interaction) => {
-            const checkUserPermissions = async (component) => {
-                if (component.options?.public === false && interaction.user.id !== interaction.message.interaction.user.id) {
-                    await interaction.reply({
-                        content: config.messages.COMPONENT_NOT_PUBLIC,
-                        ephemeral: true
-                    });
-
-                    return false;
-                }
-
-                return true;
-            }
-
-            try {
-                if (interaction.isButton()) {
-                    const component = client.collection.components.buttons.get(interaction.customId);
-
-                    if (!component) return;
-
-                    if (!(await checkUserPermissions(component))) return;
-
-                    try {
-                        component.run(client, interaction);
-                    } catch (err) {
-                        error(err);
-                    }
-
-                    return;
-                }
-
-                if (interaction.isAnySelectMenu()) {
-                    const component = client.collection.components.selects.get(interaction.customId);
-
-                    if (!component) return;
-
-                    if (!(await checkUserPermissions(component))) return;
-
-                    try {
-                        component.run(client, interaction);
-                    } catch (err) {
-                        error(err);
-                    }
-
-                    return;
-                }
-
-                if (interaction.isModalSubmit()) {
-                    const component = client.collection.components.modals.get(interaction.customId);
-
-                    if (!component) return;
-
-                    try {
-                        component.run(client, interaction);
-                    } catch (err) {
-                        error(err);
-                    }
-
-                    return;
-                }
-
-                if (interaction.isAutocomplete()) {
-                    const component = client.collection.components.autocomplete.get(interaction.commandName);
-
-                    if (!component) return;
-
-                    try {
-                        component.run(client, interaction);
-                    } catch (err) {
-                        error(err);
-                    }
-
-                    return;
-                }
-            } catch (err) {
-                error(err);
-            }
-        });
-    }
-}
+const App = require('../App');
+const Component = require('../../structure/Component');
+const AutocompleteComponent = require('../../structure/AutocompleteComponent');
+const Event = require('../../structure/Event');
 
 class EventsHandler {
     client;
 
     /**
-     * 
-     * @param {DiscordBot} client 
+     *
+     * @param {App} client 
      */
     constructor(client) {
         this.client = client;
     }
 
     load = () => {
-        const eventsPath = join(__dirname, '../../events');
-        const eventFiles = readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+        let total = 0;
 
-        for (const file of eventFiles) {
-            const event = require(join(eventsPath, file));
-            if (event.once) {
-                this.client.once(event.event, (...args) => event.run(this.client, ...args));
-            } else {
-                this.client.on(event.event, (...args) => event.run(this.client, ...args));
+        for (const directory of readdirSync('./src/events/')) {
+            for (const file of readdirSync('./src/events/' + directory).filter((f) => f.endsWith('.js'))) {
+                try {
+                    /**
+                     * @type {Event['data']}
+                     */
+                    const module = require('../../events/' + directory + '/' + file);
+
+                    if (!module) continue;
+
+                    if (module.__type__ === 5) {
+                        if (!module.event || !module.run) {
+                            error('Unable to load the event ' + file);
+                            continue;
+                        }
+
+                        if (module.once) {
+                            this.client.once(module.event, (...args) => module.run(this.client, ...args));
+                        } else {
+                            this.client.on(module.event, (...args) => module.run(this.client, ...args));
+                        }
+
+                        info(`Loaded new event: ` + file);
+
+                        total++;
+                    } else {
+                        error('Invalid event type ' + module.__type__ + ' from event file ' + file);
+                    }
+                } catch (err) {
+                    error('Unable to load a event from the path: ' + 'src/events/' + directory + '/' + file);
+                }
             }
-            info(`Loaded event: ${event.event}`);
         }
+
+        success(`Successfully loaded ${total} events.`);
     }
 }
 
